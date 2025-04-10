@@ -1,5 +1,5 @@
+"use client"
 import { useState, useEffect } from "react"
-import { LayoutDashboard } from "./dashboard-layout"
 
 export function DashboardConfig() {
 

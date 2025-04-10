@@ -21,7 +21,7 @@ export default function Register() {
     return (
         <div className="flex min-h-screen">
             <div className="w-3/5 min-h-screen flex items-center p-20 bg-pink-100">
-                <div>
+                <div className="text-black">
                     <Link href="/">
                         <img src="/logo.png" className="w-3/100 absolute left-3 top-3 transition-all duration-800 hover:cursor-pointer hover:w-4/100" alt="Logo" />
                     </Link>

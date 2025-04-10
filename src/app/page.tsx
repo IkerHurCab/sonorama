@@ -8,13 +8,10 @@ import Home from "./home/page";
 import Landing from "./landing/page";
 // import Layout from "@/components/taskForm/layout";
 import ProtectedRoute from "./auth/ProtectedRoute";
-
-
-
-
 import { useRouter } from "next/navigation"; // Reemplazo de react-router-dom
 
 export default function App() {
+  
   const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
 
@@ -28,17 +25,13 @@ export default function App() {
 
   return (
     <div>
-      {/* Simulación de rutas protegidas */}
       {token ? (
         <ProtectedRoute>
-          {/* <LayoutDashboard /> */}
           <Home />
         </ProtectedRoute>
       ) : (
         <>
           <Landing />
-          <Login onLoginSuccess={handleLoginSuccess} />
-          {/* <Register /> */}
         </>
       )}
     </div>

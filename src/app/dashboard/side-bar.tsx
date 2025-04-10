@@ -3,10 +3,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from 'next/link';
 import { motion } from "framer-motion";
-import { User } from "../../interfaces/user.interface";
+import { User } from "../interfaces/user.interface";
 import {
     getUsers,
-  } from "../../services/dashboardService";
+  } from "../services/dashboardService";
 
 export function SideBar() {
     const [modalAbierto, setModalAbierto] = useState(false);
@@ -75,7 +75,7 @@ export function SideBar() {
                                 <img src="icon-cursos-white.png" className=" w-[20px]  h-[20px] transition-all duration-500 mr-2"></img>
                                 <span className={` transition-all duration-500 ${isHovered ? 'text-[15px]' : 'text-[0px]'}`}>Cursos</span></Link></li>
                         <li className="w-full min-h-[40px] text-center">
-                            <Link className="flex items-center duration-500 hover:drop-shadow-[0px_0px_10px_rgba(255,255,255,0.5)] rounded" href="/dashboard/">
+                            <Link className="flex items-center duration-500 hover:drop-shadow-[0px_0px_10px_rgba(255,255,255,0.5)] rounded" href="/dashboard/articles">
                                 <img src="icon-articulo-white.png" className=" w-[20px]  h-[20px] transition-all duration-500 mr-2"></img>
                                 <span className={`transition-all duration-500 ${isHovered ? 'text-[15px]' : 'text-[0px]'}`}>Articulos</span>
                             </Link>

@@ -10,7 +10,7 @@ import {
 import { User } from "../../interfaces/user.interface";
 import Link from "next/link";
 
-export function DashboardUser() {
+export default function DashboardUser() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

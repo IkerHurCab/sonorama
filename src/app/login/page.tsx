@@ -42,7 +42,7 @@ export default function Login({ onLoginSuccess = () => {} }: LoginProps) {
     return (
         <div className="flex h-full">
             <div className="w-3/5 h-full flex items-center absolute right-0 top-0 p-20 bg-pink-100">
-                <div>
+                <div className="text-black">
                     <Link href="/">
                         <img
                             src="logo.png"
