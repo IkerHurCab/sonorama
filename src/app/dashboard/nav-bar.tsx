@@ -1,4 +1,6 @@
 "use client"
+import Image from 'next/image'
+
 import React, { useState, useEffect, useRef } from "react";
 export function NavBar() {
     const [modalAbierto, setModalAbierto] = useState(false);
@@ -23,8 +25,21 @@ export function NavBar() {
     return (
         <nav className='w-full h-20 bg-[url(/fondo-inverted.png)] bg-cover bg-[top_left_-10rem] text-white'>
             <div className='w-full h-20 bg-black/80 backdrop-blur-sm p-4 flex items-center'>
-                <img src="/bell-white.png" className='w-[25px] h-[25px] ml-auto mr-3 duration-400 hover:cursor-pointer hover:drop-shadow-[0px_0px_10px_rgba(255,255,255,0.5)]' />
-                <img onClick={toggleModal} src="../../../public/user-white.png" className='w-[35px] h-[35px] mr-3 duration-400 hover:cursor-pointer hover:drop-shadow-[0px_0px_10px_rgba(255,255,255,0.5)]' />
+                <Image
+                    src="/bell-white.png"
+                    alt="White Bell Icon"
+                    width={25}
+                    height={25}
+                    className="w-[25px] h-[25px] ml-auto mr-3 duration-400 hover:cursor-pointer hover:drop-shadow-[0px_0px_10px_rgba(255,255,255,0.5)]"
+                />
+                <Image
+                    onClick={toggleModal}
+                    alt="User Icon"
+                    src="/user-white.png"
+                    width={35}
+                    height={35}
+                    className="w-[35px] h-[35px] mr-3 duration-400 hover:cursor-pointer hover:drop-shadow-[0px_0px_10px_rgba(255,255,255,0.5)]"
+                />
                 {modalAbierto && (
                     <div ref={modalRef} className="absolute top-18 right-12 w-48  bg-[url(/fondo-inverted.png)] text-white rounded-sm shadow-lg drop-shadow-[0px_10px_10px_rgba(0,0,0,0.5)]">
                         <div className='w-full h-full bg-black/60 rounded-sm backdrop-blur-sm p-4 '>

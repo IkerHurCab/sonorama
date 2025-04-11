@@ -1,6 +1,8 @@
 "use client"
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image'
+
 
 export default function Register() {
     const handleRegister = (event: React.MouseEvent<HTMLButtonElement>): void => {
@@ -23,9 +25,21 @@ export default function Register() {
             <div className="w-3/5 min-h-screen flex items-center p-20 bg-pink-100">
                 <div className="text-black">
                     <Link href="/">
-                        <img src="/logo.png" className="w-3/100 absolute left-3 top-3 transition-all duration-800 hover:cursor-pointer hover:w-4/100" alt="Logo" />
+                        <Image
+                            src="/logo.png"
+                            className="w-3/100 absolute left-3 top-3 transition-all duration-800 hover:cursor-pointer hover:w-4/100"
+                            alt="Logo"
+                            width={30}
+                            height={30}
+                        />
                     </Link>
-                    <img src="/comilla.png" className="w-1/9" alt="Comilla" />
+                    <Image
+                        src="/comilla.png"
+                        className="w-1/9"
+                        alt="Comilla"
+                        width={40}
+                        height={40}
+                    />
                     <p className="mt-10 text-6xl">
                         La música es el lenguaje universal <br /> de la humanidad
                     </p>
@@ -34,7 +48,7 @@ export default function Register() {
                 </div>
             </div>
             <div className="bg-[url('/fondo.png')] bg-no-repeat bg-cover p-8 w-2/5 h-full flex flex-col items-center shadow-lg absolute right-0 top-1/2 transform -translate-y-1/2">
-                <img src="/assets/img/logo-blanco.png" alt="Logo Blanco" />
+                <Image src="/assets/img/logo-blanco.png" alt="Logo Blanco" />
                 <div className="w-full absolute inset-0 bg-black/70 backdrop-blur-sm p-30 pt-50">
                     <h1 className="text-3xl text-center mb-4 text-white font-bold drop-shadow-md">Register</h1>
                     <form className="space-y-4 w-full">

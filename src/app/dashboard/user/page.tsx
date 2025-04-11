@@ -9,6 +9,7 @@ import {
 } from "../../services/dashboardService";
 import { User } from "../../interfaces/user.interface";
 import Link from "next/link";
+import Image from 'next/image'
 
 export default function DashboardUser() {
   const [users, setUsers] = useState<User[]>([]);
@@ -17,7 +18,7 @@ export default function DashboardUser() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [newPassword, setNewPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword] = useState(false);
 
   useEffect(() => {
     const loadUsers = async () => {
@@ -42,20 +43,20 @@ export default function DashboardUser() {
   //handle delete
   const handleDelete = async (id: number) => {
     const currentUserId = 1; // Reemplaza esto con el ID del usuario autenticado
-  
+
     if (id === currentUserId) {
       alert("No puedes eliminarte a ti mismo.");
       return;
     }
-  
+
     const isConfirmed = window.confirm("¿Estás seguro de que deseas eliminar este usuario?");
     if (!isConfirmed) return;
-  
+
     try {
       await deleteUser(id);
       setUsers(users.filter((user) => user.id !== id));
     } catch (error) {
-      alert("Error al eliminar el usuario");
+      alert("Error al eliminar el usuario: " + error);
     }
   };
 
@@ -76,33 +77,22 @@ export default function DashboardUser() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const userData: Partial<User> = Object.fromEntries(formData.entries());
-  
+
     try {
       if (editingUser) {
         await updateUser(editingUser.id, userData);
       } else {
         await createUser(userData);
       }
-      
+
       // Recargar la lista de usuarios desde la API
       const updatedUsers = await getUsers();
       setUsers(updatedUsers);
-  
+
       setIsModalOpen(false);
     } catch (err) {
       console.error("Error al guardar usuario", err);
     }
-  };
-
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setEditingUser((prevUser) => {
-      if (prevUser) {
-        return { ...prevUser, [name]: value }; // Actualiza el campo que cambió
-      }
-      return prevUser; // Si no hay usuario para editar, no hace nada
-    });
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -119,7 +109,13 @@ export default function DashboardUser() {
           <div className="bg-black/60 dark:bg-black text-white backdrop-blur-sm p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold mb-2">Total de Usuarios</h3>
             <div className="flex items-center gap-2">
-              <img src="/user-white.png" alt="users" className="w-10" />
+              <Image
+                src="/user-white.png"
+                alt="Users"
+                className="w-10"
+                width={40}
+                height={40}
+              />
               <p className="text-3xl font-bold">{users.length}</p>
             </div>
           </div>
@@ -130,7 +126,13 @@ export default function DashboardUser() {
               Profesores Conectados
             </h3>
             <div className="flex items-center gap-2">
-              <img src="/user-white.png" alt="users" className="w-10" />
+              <Image
+                src="/user-white.png"
+                alt="Users"
+                className="w-10"
+                width={40}
+                height={40}
+              />              
               <p className="text-3xl font-bold">31</p>
             </div>
           </div>
@@ -139,7 +141,13 @@ export default function DashboardUser() {
           <div className="bg-black/60 dark:bg-black text-white backdrop-blur-sm p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold mb-2">Alumnos Conectados</h3>
             <div className="flex items-center gap-2">
-              <img src="/user-white.png" alt="users" className="w-10" />
+              <Image
+                src="/user-white.png"
+                alt="Users"
+                className="w-10"
+                width={40}
+                height={40}
+              />              
               <p className="text-3xl font-bold">33</p>
             </div>
           </div>

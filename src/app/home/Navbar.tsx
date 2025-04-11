@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import { Home, BookOpen, Music2, User } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from 'next/image'
+
 
 export function Navbar() {
     const [modalAbierto, setModalAbierto] = useState(false);
@@ -35,10 +37,12 @@ export function Navbar() {
         <nav className="fixed top-0 left-0 right-0 z-50 bg-[url(/fondo-inverted.png)] bg-cover text-white">
             <div className="relative flex items-center justify-between mx-auto px-4 dark:bg-black bg-black/80 backdrop-blur-sm">
                 <Link href="/">
-                    <img
+                    <Image
+                        src="/logo-blanco.png"
+                        alt="White Logo"
+                        width={36}
+                        height={36}
                         className="w-9 transition-all duration-500 hover:drop-shadow-[0px_0px_10px_rgba(255,255,255,0.9)] hover:cursor-pointer"
-                        src="logo-blanco.png"
-                        alt="Logo"
                     />
                 </Link>
                 <div className="flex-grow flex items-center justify-center space-x-8 h-16">

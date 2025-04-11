@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { Check, Eye, X } from "lucide-react"
 import { getArticles, getArticleById, validateArticle, deleteArticle } from "../../services/dashboardService"
 import type { Article, ArticleTemplate } from "../../interfaces/article.interface"
+import Image from 'next/image'
 
 export default function DashboardArticles() {
   const [articles, setArticles] = useState<Article[]>([])
@@ -358,7 +359,7 @@ export default function DashboardArticles() {
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
                             {template.imageUrl1 && (
                               <div>
-                                <img
+                                <Image 
                                   src={template.imageUrl1 || "/placeholder.svg"}
                                   alt="Imagen 1"
                                   className="w-full h-auto rounded-lg"
@@ -372,7 +373,7 @@ export default function DashboardArticles() {
                             )}
                             {template.imageUrl2 && (
                               <div>
-                                <img
+                                <Image
                                   src={template.imageUrl2 || "/placeholder.svg"}
                                   alt="Imagen 2"
                                   className="w-full h-auto rounded-lg"
@@ -386,7 +387,7 @@ export default function DashboardArticles() {
                             )}
                             {template.imageUrl3 && (
                               <div>
-                                <img
+                                <Image
                                   src={template.imageUrl3 || "/placeholder.svg"}
                                   alt="Imagen 3"
                                   className="w-full h-auto rounded-lg"
@@ -400,7 +401,7 @@ export default function DashboardArticles() {
                             )}
                             {template.imageUrl4 && (
                               <div>
-                                <img
+                                <Image
                                   src={template.imageUrl4 || "/placeholder.svg"}
                                   alt="Imagen 4"
                                   className="w-full h-auto rounded-lg"

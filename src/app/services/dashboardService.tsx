@@ -20,7 +20,10 @@ export async function getUsers(): Promise<User[]> {
             },
         });
 
-        if (!response.ok) throw new Error("Error al obtener los usuarios");
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(errorText);
+        }
 
         return await response.json();
     } catch (error) {

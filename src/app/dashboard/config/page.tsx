@@ -1,11 +1,8 @@
 "use client"
-import { useState, useEffect } from "react"
 
 export function DashboardConfig() {
 
-    const [darkMode, setDarkMode] = useState<boolean>(false);
-
-    const toggleDarkMode = (value: any) => {
+    const toggleDarkMode = (value: string) => {
         if(value == "dark"){
             document.documentElement.classList.toggle("dark");
         }else{

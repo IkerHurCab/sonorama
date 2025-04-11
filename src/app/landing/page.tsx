@@ -2,6 +2,8 @@
 import Link from 'next/link';
 import LogoutButton from '../reutilizables/LogoutBtn';
 import { useState } from 'react';
+import Image from 'next/image'
+
 
 export default function Landing() {
     const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
@@ -27,10 +29,12 @@ export default function Landing() {
     return (
         <div className="min-h-screen bg-[url(/fondo.png)] bg-cover relative">
             <div className='bg-black/50 min-h-screen text-white flex'>
-                <img
-                    className='w-13 right-4 top-4 absolute drop-shadow-[0px_0px_10px_rgba(255,255,255,0.5)]'
-                    src="logo-blanco.png"
-                    alt="Logo"
+                <Image
+                    src="/logo-blanco.png"
+                    alt="White Logo"
+                    width={52}
+                    height={52}
+                    className="w-13 right-4 top-4 absolute drop-shadow-[0px_0px_10px_rgba(255,255,255,0.5)]"
                 />
                 <div className="absolute bottom-40 left-20 p-4">
                     <h1 className='text-6xl my-4 drop-shadow-[0px_0px_10px_rgba(255,255,255,0.5)]'>SONORAMA</h1>

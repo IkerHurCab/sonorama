@@ -4,12 +4,14 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import React from "react";
+import Image from 'next/image'
+
 
 interface LoginProps {
     onLoginSuccess: (token: string, name: string, userId: string) => void;
 }
 
-export default function Login({ onLoginSuccess = () => {} }: LoginProps) {
+export default function Login({ onLoginSuccess = () => { } }: LoginProps) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -28,6 +30,7 @@ export default function Login({ onLoginSuccess = () => {} }: LoginProps) {
                 if (!res.ok) {
                     throw new Error("Invalid credentials");
                 }
+                console.log(res);
                 return res.json();
             })
             .then((data) => {
@@ -44,13 +47,21 @@ export default function Login({ onLoginSuccess = () => {} }: LoginProps) {
             <div className="w-3/5 h-full flex items-center absolute right-0 top-0 p-20 bg-pink-100">
                 <div className="text-black">
                     <Link href="/">
-                        <img
-                            src="logo.png"
+                        <Image
+                            src="/logo.png"
                             className="w-5/100 absolute right-3 top-3 transition-all duration-800 hover:cursor-pointer hover:w-6/100"
                             alt="Logo"
+                            width={200}
+                            height={50}
                         />
                     </Link>
-                    <img src="/comilla.png" className="w-1/9" alt="Comilla" />
+                    <Image
+                        src="/comilla.png"
+                        className="w-1/9"
+                        alt="Comilla"
+                        width={100}
+                        height={100}
+                    />
                     <p className="mt-10 text-6xl">
                         La música es el lenguaje universal <br /> de la humanidad
                     </p>
@@ -59,8 +70,13 @@ export default function Login({ onLoginSuccess = () => {} }: LoginProps) {
                 </div>
             </div>
             <div className="bg-[url(/fondo-inverted.png)] h-full bg-no-repeat bg-cover w-2/5 flex flex-col items-center shadow-lg absolute">
-                <img src="logo-blanco.png" className="h-full" alt="Logo Blanco" />
-                <div className="w-full h-full absolute inset-0 flex flex-col items-center justify-center bg-black/70 backdrop-blur-sm">
+                <Image
+                    src="/logo-blanco.png"
+                    alt="White Logo"
+                    width={150}
+                    height={50}
+                    className="h-full w-auto"
+                />                <div className="w-full h-full absolute inset-0 flex flex-col items-center justify-center bg-black/70 backdrop-blur-sm">
                     <h1 className="text-3xl text-center mb-4 text-white font-bold drop-shadow-md">
                         Iniciar Sesión
                     </h1>

@@ -1,7 +1,6 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 import eventsData from '../data/events.json';
-import  Navbar  from '../home/Navbar';
 
 interface HomeMapProps {
     selectedYearRange: [number, number];
