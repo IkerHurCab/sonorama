@@ -80,7 +80,7 @@ export default function DashboardArticles() {
   const validatedArticles = articles.filter((article) => article.validated).length
 
   return (
-    <div className="relative p-20">
+    <div className="relative p-20  w-full h-full">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-30 mb-6">
         <div className="bg-[url(/fondo-inverted.png)] rounded-lg shadow-md">
           <div className="bg-black/60 dark:bg-black text-white backdrop-blur-sm p-6 rounded-lg shadow-md">

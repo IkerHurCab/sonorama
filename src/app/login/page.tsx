@@ -30,11 +30,12 @@ export default function Login({ onLoginSuccess = () => { } }: LoginProps) {
                 if (!res.ok) {
                     throw new Error("Invalid credentials");
                 }
-                console.log(res);
                 return res.json();
             })
             .then((data) => {
-                onLoginSuccess(data.token, data.user.username, data.user.id);
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("userId", data.user.id);
+                localStorage.setItem("userName", data.user.username);
                 router.push("/home");
             })
             .catch((err) => {
@@ -94,11 +95,11 @@ export default function Login({ onLoginSuccess = () => { } }: LoginProps) {
                                 type="text"
                                 id="Email"
                                 placeholder="Enter your Email"
-                                className="bg-white p-2 w-full rounded-md shadow-md focus:outline-none"
+                                className="bg-white text-black p-2 w-full rounded-md shadow-md focus:outline-none"
                             />
                         </div>
                         <div className="flex flex-col">
-                            <label className="text-white font-semibold drop-shadow-sm">
+                            <label className="text-white  font-semibold drop-shadow-sm">
                                 Password
                             </label>
                             <input
@@ -107,7 +108,7 @@ export default function Login({ onLoginSuccess = () => { } }: LoginProps) {
                                 type="password"
                                 id="password"
                                 placeholder="Enter your password"
-                                className="bg-white p-2 w-full rounded-md shadow-md focus:outline-none"
+                                className="bg-white text-black p-2 w-full rounded-md shadow-md focus:outline-none"
                             />
                         </div>
                         <button
