@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Error403 } from "@/app/error/403";
+
 interface ProtectedRouteProps {
   requiredRoles?: number[];
   children: React.ReactNode;
@@ -10,40 +11,42 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute = ({ requiredRoles, children }: ProtectedRouteProps) => {
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
-  const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
   const router = useRouter();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
     if (!token) {
       router.push("/login");
       return;
     }
 
-    if (!requiredRoles || requiredRoles.length === 0) {
-      setIsAuthorized(true);
-      return;
-    }
-
-    const checkUserRole = async () => {
+    const validateAccess = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/me", {
-          headers: { Authorization: `Bearer ${token}` },
+        const res = await fetch("http://127.0.0.1:8000/api/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
 
-        if (!response.ok) throw new Error("Failed to fetch user data");
+        if (!res.ok) throw new Error("Failed to fetch user");
 
-        const data = await response.json();
-        const userData = data.user;
-        const hasRequiredRole = requiredRoles.includes(userData.roles_id);
-        setIsAuthorized(hasRequiredRole);
-      } catch (error) {
-        console.error("Error checking user role:", error);
+        const data = await res.json();
+        const userRole = data.user?.roles_id;
+
+        if (!requiredRoles || requiredRoles.length === 0) {
+          setIsAuthorized(true);
+        } else {
+          const hasRole = requiredRoles.includes(userRole);
+          setIsAuthorized(hasRole);
+        }
+      } catch (err) {
+        console.error("Auth error:", err);
         setIsAuthorized(false);
       }
     };
 
-    checkUserRole();
-  }, [token, requiredRoles, router]);
+    validateAccess();
+  }, [requiredRoles, router]);
 
   if (isAuthorized === null) {
     return (
@@ -53,7 +56,7 @@ const ProtectedRoute = ({ requiredRoles, children }: ProtectedRouteProps) => {
     );
   }
 
-  if (!isAuthorized) {
+  if (isAuthorized === false) {
     return <Error403 />;
   }
 

@@ -13,11 +13,11 @@ export default function DashboardHome() {
     return (
         <div className="h-screen flex">
             <div className="w-1/2 p-20">
-                <h1 className="text-4xl">
+                <h1 className="text-4xl text-black">
                     Hola, {username}, bienvenido de nuevo
                 </h1>
             </div>
-            <div className="w-1/2 h-full p-6">
+            <div className="w-1/2 h-full p-6 text-black">
                 <Calendar />
             </div>
         </div>

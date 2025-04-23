@@ -1,5 +1,6 @@
 "use client"
 
+import ProtectedRoute from '../auth/ProtectedRoute';
 // Importaciones de React
 import { useState, useEffect, useRef } from 'react';
 // Importaciones de componentes
@@ -10,7 +11,7 @@ import { Filters } from '../globe/Filters';
 import { Navbar } from './Navbar';
 import { SettingsModal, type Settings as SettingsType } from '../globe/SettingsModal';
 // Importaciones de iconos
-import { ChevronLeft, ChevronRight, Settings} from 'lucide-react';
+import { ChevronLeft, ChevronRight, Settings } from 'lucide-react';
 
 const MIN_YEAR = -35000;
 const MAX_YEAR = 2023;
@@ -105,86 +106,88 @@ export default function Home() {
   }, [selectedYearRange]);
 
   return (
-    <div className="w-full h-screen dark:bg-gray-200 bg-pink-100 relative">
-      {settings.display.showNavbar && <Navbar />}
+    <ProtectedRoute>
+      <div className="w-full h-screen dark:bg-gray-200 bg-pink-100 relative">
+        {settings.display.showNavbar && <Navbar />}
 
-      {settings.display.showFilters && (
-        <div className="absolute top-0 left-0 z-10 ">
-          <button
-            onClick={() => setShowFilters(!showFilters)}
-            className={`absolute top-[50vh] left-0 ${showFilters ? 'left-[340px]' : 'left-4'} z-20 bg-[url(/fondo-inverted.png)] bg-[top_left_-30rem] bg-black/90 hover:bg-black/60 backdrop-blur-md p-2 rounded-full text-white transition-all duration-300 bg-blend-multiply`}
-          >
-            {showFilters ? <ChevronLeft /> : <ChevronRight />}
-          </button>
+        {settings.display.showFilters && (
+          <div className="absolute top-0 left-0 z-10 ">
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className={`absolute top-[50vh] left-0 ${showFilters ? 'left-[340px]' : 'left-4'} z-20 bg-[url(/fondo-inverted.png)] bg-[top_left_-30rem] bg-black/90 hover:bg-black/60 backdrop-blur-md p-2 rounded-full text-white transition-all duration-300 bg-blend-multiply`}
+            >
+              {showFilters ? <ChevronLeft /> : <ChevronRight />}
+            </button>
 
-          <div
-            className={`transition-all duration-300 ${showFilters ? 'translate-x-0' : '-translate-x-[280px]'}`}
-            style={{ pointerEvents: 'auto' }}
-          >
-            <Filters
-              filters={filters}
-              setFilters={setFilters}
-              setSelectedYearRange={setSelectedYearRange}
-              minYear={MIN_YEAR}
-              maxYear={MAX_YEAR}
-            />
+            <div
+              className={`transition-all duration-300 ${showFilters ? 'translate-x-0' : '-translate-x-[280px]'}`}
+              style={{ pointerEvents: 'auto' }}
+            >
+              <Filters
+                filters={filters}
+                setFilters={setFilters}
+                setSelectedYearRange={setSelectedYearRange}
+                minYear={MIN_YEAR}
+                maxYear={MAX_YEAR}
+              />
+            </div>
           </div>
+        )}
+
+        <div className="absolute  bottom-10/24 -translate-y-15/20 right-4 z-20 flex flex-col gap-2">
+          <button
+            onClick={handleSettingsClick}
+            className="bg-black/80 hover:bg-black/90 backdrop-blur-md p-2 rounded-full text-white transition-all duration-300"
+          >
+            <Settings className="w-5 h-5" />
+          </button>
         </div>
-      )}
 
-      <div className="absolute  bottom-10/24 -translate-y-15/20 right-4 z-20 flex flex-col gap-2">
-        <button
-          onClick={handleSettingsClick}
-          className="bg-black/80 hover:bg-black/90 backdrop-blur-md p-2 rounded-full text-white transition-all duration-300"
-        >
-          <Settings className="w-5 h-5" />
-        </button>
-      </div>
+        <label className="absolute top-23 right-20 z-20 inline-flex items-center cursor-pointer mb-4">
+          <input
+            type="checkbox"
+            className="sr-only peer"
+            checked={showMap}
+            onChange={() => setShowMap(!showMap)}
+          />
+          <div className="w-14 h-8 bg-gray-300 peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer-checked:bg-blue-500 peer-checked:before:translate-x-6 before:content-[''] before:absolute before:top-1 before:left-1 before:w-6 before:h-6 before:bg-white before:rounded-full before:transition-transform"></div>
+        </label>
+        {showMap ? (
+          <HomeMap
+            selectedYearRange={selectedYearRange}
+            filters={filters}
+          />
+        ) : (
+          <GlobeMain
+            selectedYearRange={selectedYearRange}
+            filters={filters}
+            isPaused={isPaused}
+            setIsPaused={setIsPaused}
+            settings={settings}
+            orbitControlsRef={orbitControlsRef}
+          />
+        )}
 
-      <label className="absolute top-23 right-20 z-20 inline-flex items-center cursor-pointer mb-4">
-        <input
-          type="checkbox"
-          className="sr-only peer"
-          checked={showMap}
-          onChange={() => setShowMap(!showMap)}
-        />
-        <div className="w-14 h-8 bg-gray-300 peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer-checked:bg-blue-500 peer-checked:before:translate-x-6 before:content-[''] before:absolute before:top-1 before:left-1 before:w-6 before:h-6 before:bg-white before:rounded-full before:transition-transform"></div>
-      </label>
-      {showMap ? (
-        <HomeMap
-          selectedYearRange={selectedYearRange}
-          filters={filters}
-        />
-      ) : (
-        <GlobeMain
-          selectedYearRange={selectedYearRange}
-          filters={filters}
-          isPaused={isPaused}
-          setIsPaused={setIsPaused}
+        {settings.display.showTimeline && (
+          <Timeline
+            selectedYearRange={selectedYearRange}
+            setSelectedYearRange={setSelectedYearRange}
+            minYear={MIN_YEAR}
+            maxYear={MAX_YEAR}
+            dateFormat={settings.display.dateFormat}
+          />
+        )}
+        <SettingsModal
+          isOpen={showSettings}
+          onClose={() => setShowSettings(false)}
           settings={settings}
-          orbitControlsRef={orbitControlsRef}
+          onSettingsChange={(newSettings) => {
+            setSettings(newSettings);
+            saveSettings(newSettings);
+          }}
+          buttonPosition={settingsButtonRef}
         />
-      )}
-
-      {settings.display.showTimeline && (
-        <Timeline
-          selectedYearRange={selectedYearRange}
-          setSelectedYearRange={setSelectedYearRange}
-          minYear={MIN_YEAR}
-          maxYear={MAX_YEAR}
-          dateFormat={settings.display.dateFormat}
-        />
-      )}
-      <SettingsModal
-        isOpen={showSettings}
-        onClose={() => setShowSettings(false)}
-        settings={settings}
-        onSettingsChange={(newSettings) => {
-          setSettings(newSettings);
-          saveSettings(newSettings);
-        }}
-        buttonPosition={settingsButtonRef}
-      />
-    </div>
+      </div>
+    </ProtectedRoute>
   );
 }

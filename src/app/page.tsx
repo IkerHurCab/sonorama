@@ -1,12 +1,16 @@
 "use client";
 import Link from 'next/link';
 import LogoutButton from './reutilizables/LogoutBtn';
-import { useState } from 'react';
-import Image from 'next/image'
-
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 export default function Landing() {
-  const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    setToken(storedToken);
+  }, []);
 
   const handleLogout = () => {
     const token = localStorage.getItem("token");
