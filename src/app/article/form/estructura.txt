@@ -1,0 +1,28 @@
+{
+    "titulo": "a",
+    "nombre": "b",
+    "apellidos": "c",
+    "centro": "d",
+    "plantillas": [
+        {
+            "type": "plantilla1",
+            "textArea1": "e",
+            "textArea2": "f",
+            "imageFile": {
+                imageFile : File
+                lastModified : 1742411880983
+                lastModifiedDate : Wed Mar 19 2025 20:18:00 GMT+0100 (hora estándar de Europa central) {}
+                name : "TEMPvivaldi.jpg"
+                size : 34062
+                type : "image/jpeg"
+                webkitRelativePath : ""},
+            "imageFoot": "pedro",
+            "shortCitation": "g"
+        }
+    ],
+    "bibliografia": "e",
+    "requestTagList": [
+        "barroque"
+    ],
+    "requestLocationId": 1004047427
+}

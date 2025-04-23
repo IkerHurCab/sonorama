@@ -1,0 +1,8 @@
+{
+    "dominio" : "http://localhost:",
+    "puerto" : "8000" ,
+    "recursos":{
+        "ciudades":"/api/cities"
+    }
+
+}
